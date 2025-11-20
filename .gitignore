@@ -1,0 +1,13 @@
+# Node modules for any folder
+**/node_modules/
+
+# Environment files
+dashboard/.env
+**/.env
+
+# Build folders
+frontend/build/
+dashboard/build/
+
+# VS Code settings
+.vscode/
