@@ -143,8 +143,8 @@ app.get("/me", async (req, res) => {
 app.get("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // true in production if using HTTPS
-    sameSite: "lax", // must match your cookie setup
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     path: "/",
   });
 
