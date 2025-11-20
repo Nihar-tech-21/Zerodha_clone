@@ -1,6 +1,7 @@
 # Zerodha Clone
 
 A full-stack clone of the Zerodha trading platform. This project is built with separate **backend**, **frontend**, and **dashboard** folders for modularity and ease of development.
+You can see the live project by visiting this link : https://zerodha-clone-frontend-sooty.vercel.app
 
 ---
 
