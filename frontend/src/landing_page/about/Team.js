@@ -9,7 +9,7 @@ function Team() {
       <div className="row p-5 text-muted">
         <div className="col-6 p-5 text-center">
           <img
-            src="media/images/myImage.jpeg"
+            src="/media/images/myImage.jpeg"
             alt="founder"
             style={{
               borderRadius: "100%",
