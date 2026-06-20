@@ -15,7 +15,7 @@ const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 const UsersModel = require("./model/UsersModel");
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3002;
 const DBurl = process.env.MONGO_URL;
 
 const app = express();
@@ -103,8 +103,8 @@ app.post("/login", async (req, res) => {
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
       maxAge: 1000 * 60 * 60 * 1,
     });
@@ -153,6 +153,10 @@ app.get("/logout", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${process.env.PORT}`);
-  mongoose.connect(DBurl);
-  console.log("DB connected");
+  try {
+    await mongoose.connect(DBurl);
+    console.log("DB connected successfully");
+  } catch (err) {
+    console.error("Mongo connection failed:", err);
+  }
 });
