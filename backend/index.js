@@ -24,7 +24,7 @@ app.use(
   cors({
     origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL], //"*" for all origins
     credentials: true,
-  })
+  }),
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -103,7 +103,7 @@ app.post("/login", async (req, res) => {
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure:  process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
       maxAge: 1000 * 60 * 60 * 1,
@@ -151,7 +151,7 @@ app.get("/logout", (req, res) => {
   res.status(200).json({ message: "Logged out successfully", success: true });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`app listening on port ${process.env.PORT}`);
   try {
     await mongoose.connect(DBurl);
